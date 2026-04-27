@@ -453,7 +453,7 @@
   <div class="unlock-card">
     <div class="unlock-glow">🎁</div>
     <div class="unlock-title">¡Material desbloqueado!</div>
-    <div class="unlock-sub">Gracias por completar la encuesta y apoyar a CO.DE Aerospace. Aquí está tu material exclusivo.</div>
+    <div class="unlock-sub">Gracias por completar la encuesta. <b>Tu material se está abriendo automáticamente en una nueva pestaña.</b></div>
 
     <div class="material-grid">
       <div class="mat-item">
@@ -479,7 +479,7 @@
     </div>
 
     <a href="#" target="_blank" class="btn-download locked-safe" id="finalDownloadBtn">
-      📥 Descargar material completo
+      📥 Ir a Google Drive (Si no se abrió solo)
     </a>
 
     <div class="stats-row">
@@ -732,16 +732,17 @@ function confirmFollow() {
   if (!btn.classList.contains('ready')) return;
 
   // 🔒 SEGURIDAD: Inyectamos el link real solo cuando hayan cumplido todo
-  // Esto evita que inspeccionen el código HTML para saltarse los pasos.
-  // URL oculta con Base64: https://drive.google.com/drive/folders/1FuYfywoAB1wE5dOnkitVzu0A1-6p0Lwv
   const realLink = atob("aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvMUZ1WWZ5d29BQjF3RTVkT25raXRWenUwQTEtNnAwTHd2");
   
   const finalBtn = document.getElementById('finalDownloadBtn');
   finalBtn.href = realLink;
-  finalBtn.classList.remove('locked-safe'); // Hacemos visible el botón
+  finalBtn.classList.remove('locked-safe'); 
 
   loadStats();
   showPage('page-unlock');
+  
+  // MAGIA AQUI: ABRE EL DRIVE AUTOMATICAMENTE AL DARLE CLIC
+  window.open(realLink, '_blank');
 }
 
 // ════════════════════════════════════
